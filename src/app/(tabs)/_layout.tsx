@@ -5,6 +5,7 @@ import { Platform, StyleSheet, View } from 'react-native';
 import { useStore } from '@/store/store';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Icon, IconName } from '@/ui/Icon';
+import { InstallPrompt } from '@/ui/InstallPrompt';
 
 function TabIcon({ name, focused }: { name: IconName; focused: boolean }) {
   const { c } = useTheme();
@@ -31,6 +32,7 @@ export default function TabsLayout() {
   if (hydrated && !onboarded) return <Redirect href="/onboarding" />;
 
   return (
+    <View style={{ flex: 1 }}>
     <Tabs
       screenOptions={{
         headerShown: false,
@@ -100,5 +102,7 @@ export default function TabsLayout() {
         }}
       />
     </Tabs>
+    <InstallPrompt />
+    </View>
   );
 }

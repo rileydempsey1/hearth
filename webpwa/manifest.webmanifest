@@ -1,0 +1,17 @@
+{
+  "name": "Hearth — your work, in one place",
+  "short_name": "Hearth",
+  "description": "A calm, private home for your projects: spaces, decisions, tasks, and playbooks for working well. Everything stays on your device.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#100E0C",
+  "theme_color": "#100E0C",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
