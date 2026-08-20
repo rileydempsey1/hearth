@@ -1,5 +1,7 @@
 # Hearth 🔥
 
+**Live app:** https://rileydempsey1.github.io/hearth/ — open it on your phone and add it to your Home Screen.
+
 A calm, local-first work hub for iOS — built with Expo / React Native.
 
 Spaces hold each project's running log (notes, decisions, wins, blockers, open
@@ -16,7 +18,14 @@ npx expo start          # then press i for the iOS simulator
 
 The web preview (`npx expo start --web`) is fully functional for development.
 
-## Ship it
+## Web deploys
+
+Every push to `main` builds and publishes the PWA to GitHub Pages automatically
+(`.github/workflows/deploy.yml`). The build generates all icons from SVG
+(`gen-assets.mjs`) and wraps the Expo web export as an installable, offline-capable
+PWA (`scripts-build-web.mjs`).
+
+## Ship it (App Store, later)
 
 - Bundle id: `com.hearthapp.hearth` (see app.json)
 - Icons and splash are generated in `assets/images/`
