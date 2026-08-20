@@ -1,11 +1,12 @@
 /* Hearth service worker: network-first for the shell, cache-first for
-   hashed assets, so the app works fully offline after the first visit. */
-const VERSION = 'hearth-v1';
-const SHELL = ['/'];
+   hashed assets, so the app works fully offline after the first visit.
+   Paths derive from the registration scope so any base path works. */
+const VERSION = 'hearth-v2';
+const SHELL = new URL(self.registration.scope).pathname; // e.g. '/' or '/hearth/'
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open(VERSION).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())
+    caches.open(VERSION).then((c) => c.addAll([SHELL])).then(() => self.skipWaiting())
   );
 });
 
@@ -24,21 +25,19 @@ self.addEventListener('fetch', (e) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  // Navigations: network first, fall back to cached shell when offline.
   if (req.mode === 'navigate') {
     e.respondWith(
       fetch(req)
         .then((res) => {
           const copy = res.clone();
-          caches.open(VERSION).then((c) => c.put('/', copy));
+          caches.open(VERSION).then((c) => c.put(SHELL, copy));
           return res;
         })
-        .catch(() => caches.match('/'))
+        .catch(() => caches.match(SHELL))
     );
     return;
   }
 
-  // Everything else (hashed bundles, fonts, images): cache first.
   e.respondWith(
     caches.match(req).then(
       (hit) =>
